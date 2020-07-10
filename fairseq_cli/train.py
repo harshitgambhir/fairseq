@@ -37,7 +37,7 @@ logging.basicConfig(
     level=logging.INFO,
     stream=sys.stdout,
 )
-logger = logging.getLogger("fairseq_cli.train")
+logger = logging.getLogger("fairseq_cli.train").setLevel(logging.DEBUG)
 
 
 def main(
@@ -68,7 +68,7 @@ def main(
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
 
     # Print args
-    print(args)
+    logger.info(args)
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)

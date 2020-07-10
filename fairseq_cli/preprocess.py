@@ -37,7 +37,7 @@ def main(args):
     logger.addHandler(logging.FileHandler(
         filename=os.path.join(args.destdir, 'preprocess.log'),
     ))
-    logger.info(args)
+    print(args)
 
     task = tasks.get_task(args.task)
 
@@ -108,7 +108,7 @@ def main(args):
         tgt_dict.save(dict_path(args.target_lang))
 
     def make_binary_dataset(vocab, input_prefix, output_prefix, lang, num_workers):
-        logger.info("[{}] Dictionary: {} types".format(lang, len(vocab)))
+        print("[{}] Dictionary: {} types".format(lang, len(vocab)))
         n_seq_tok = [0, 0]
         replaced = Counter()
 
@@ -160,7 +160,7 @@ def main(args):
 
         ds.finalize(dataset_dest_file(args, output_prefix, lang, "idx"))
 
-        logger.info(
+        print(
             "[{}] {}: {} sents, {} tokens, {:.3}% replaced by {}".format(
                 lang,
                 input_file,
@@ -218,7 +218,7 @@ def main(args):
 
         ds.finalize(dataset_dest_file(args, output_prefix, None, "idx"))
 
-        logger.info(
+        print(
             "[alignments] {}: parsed {} alignments".format(
                 input_file,
                 nseq[0]
@@ -262,7 +262,7 @@ def main(args):
     if args.align_suffix:
         make_all_alignments()
 
-    logger.info("Wrote preprocessed data to {}".format(args.destdir))
+    print("Wrote preprocessed data to {}".format(args.destdir))
 
     if args.alignfile:
         assert args.trainpref, "--trainpref must be set if --alignfile is specified"

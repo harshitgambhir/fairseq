@@ -94,7 +94,7 @@ class CrossLingualLMTask(FairseqTask):
     def setup_task(cls, args, **kwargs):
         """Setup the task."""
         dictionary = MaskedLMDictionary.load(os.path.join(args.data, 'dict.txt'))
-        logger.info('dictionary: {} types'.format(len(dictionary)))
+        print('dictionary: {} types'.format(len(dictionary)))
         return cls(args, dictionary)
 
     def _load_single_lang_dataset(self, split, epoch):
@@ -125,7 +125,7 @@ class CrossLingualLMTask(FairseqTask):
                 )
             )
 
-            logger.info('{} {} {} examples'.format(data_path, split_k, len(loaded_datasets[-1])))
+            print('{} {} {} examples'.format(data_path, split_k, len(loaded_datasets[-1])))
 
         if len(loaded_datasets) == 1:
             dataset = loaded_datasets[0]
@@ -165,6 +165,6 @@ class CrossLingualLMTask(FairseqTask):
             )
 
         self.datasets[split] = MultiCorpusSampledDataset(dataset_map)
-        logger.info('{} {} {} examples'.format(
+        print('{} {} {} examples'.format(
             utils.split_paths(self.args.data)[epoch - 1], split, len(self.datasets[split]))
         )

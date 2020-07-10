@@ -83,7 +83,7 @@ def main(args):
     assert not args.max_sentences or args.max_sentences <= args.buffer_size, \
         '--max-sentences/--batch-size cannot be larger than --buffer-size'
 
-    logger.info(args)
+    print(args)
 
     # Fix seed for stochastic decoding
     if args.seed is not None and not args.no_seed_provided:
@@ -96,7 +96,7 @@ def main(args):
     task = tasks.setup_task(args)
 
     # Load ensemble
-    logger.info('loading model(s) from {}'.format(args.path))
+    print('loading model(s) from {}'.format(args.path))
     models, _model_args = checkpoint_utils.load_model_ensemble(
         args.path.split(os.pathsep),
         arg_overrides=eval(args.model_overrides),
@@ -147,9 +147,9 @@ def main(args):
     )
 
     if args.buffer_size > 1:
-        logger.info('Sentence buffer size: %s', args.buffer_size)
-    logger.info('NOTE: hypothesis and token scores are output in base 2')
-    logger.info('Type the input sentence and press return:')
+        print('Sentence buffer size: %s', args.buffer_size)
+    print('NOTE: hypothesis and token scores are output in base 2')
+    print('Type the input sentence and press return:')
     start_id = 0
     for inputs in buffered_read(args.input, args.buffer_size):
         results = []

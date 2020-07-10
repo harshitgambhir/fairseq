@@ -79,7 +79,7 @@ class Quantizer(object):
             # finished training. Either way, don't quantize again.
             return
 
-        logger.info(
+        print(
             'quantizing model (step={}; layers_to_quantize[step]={})'.format(
                 self.quantization_step, self.layers_to_quantize[self.quantization_step]
             )
@@ -92,8 +92,8 @@ class Quantizer(object):
             self.n_centroids_config,
             step=self.quantization_step,
         )
-        logger.info('quantized layers: {}'.format(quantized_layers))
-        logger.info(self.size_tracker)
+        print('quantized layers: {}'.format(quantized_layers))
+        print(self.size_tracker)
 
         self.quantization_step += 1
 

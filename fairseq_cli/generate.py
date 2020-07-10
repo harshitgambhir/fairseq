@@ -51,7 +51,7 @@ def _main(args, output_file):
 
     if args.max_tokens is None and args.max_sentences is None:
         args.max_tokens = 12000
-    logger.info(args)
+    print(args)
 
     # Fix seed for stochastic decoding
     if args.seed is not None and not args.no_seed_provided:
@@ -72,7 +72,7 @@ def _main(args, output_file):
     tgt_dict = task.target_dictionary
 
     # Load ensemble
-    logger.info('loading model(s) from {}'.format(args.path))
+    print('loading model(s) from {}'.format(args.path))
     models, _model_args = checkpoint_utils.load_model_ensemble(
         utils.split_paths(args.path),
         arg_overrides=eval(args.model_overrides),
@@ -254,8 +254,8 @@ def _main(args, output_file):
         progress.log({'wps': round(wps_meter.avg)})
         num_sentences += sample['nsentences']
 
-    logger.info('NOTE: hypothesis and token scores are output in base 2')
-    logger.info('Translated {} sentences ({} tokens) in {:.1f}s ({:.2f} sentences/s, {:.2f} tokens/s)'.format(
+    print('NOTE: hypothesis and token scores are output in base 2')
+    print('Translated {} sentences ({} tokens) in {:.1f}s ({:.2f} sentences/s, {:.2f} tokens/s)'.format(
         num_sentences, gen_timer.n, gen_timer.sum, num_sentences / gen_timer.sum, 1. / gen_timer.avg))
     if has_target:
         if args.bpe and not args.sacrebleu:
@@ -263,7 +263,7 @@ def _main(args, output_file):
                 logger.warning("BLEU score is being computed by splitting detokenized string on spaces, this is probably not what you want. Use --sacrebleu for standard 13a BLEU tokenization")
             else:
                 logger.warning("If you are using BPE on the target side, the BLEU score is computed on BPE tokens, not on proper words.  Use --sacrebleu for standard 13a BLEU tokenization")
-        logger.info('Generate {} with beam={}: {}'.format(args.gen_subset, args.beam, scorer.result_string()))
+        print('Generate {} with beam={}: {}'.format(args.gen_subset, args.beam, scorer.result_string()))
 
     return scorer
 

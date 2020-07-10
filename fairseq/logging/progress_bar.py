@@ -189,7 +189,7 @@ class JsonProgressBar(BaseProgressBar):
             )
             stats = self._format_stats(stats, epoch=self.epoch, update=update)
             with rename_logger(logger, tag):
-                logger.info(json.dumps(stats))
+                print(json.dumps(stats))
 
     def print(self, stats, tag=None, step=None):
         """Print end-of-epoch stats."""
@@ -198,7 +198,7 @@ class JsonProgressBar(BaseProgressBar):
             self.stats = OrderedDict([(tag + '_' + k, v) for k, v in self.stats.items()])
         stats = self._format_stats(self.stats, epoch=self.epoch)
         with rename_logger(logger, tag):
-            logger.info(json.dumps(stats))
+            print(json.dumps(stats))
 
     def _format_stats(self, stats, epoch=None, update=None):
         postfix = OrderedDict()
@@ -257,7 +257,7 @@ class SimpleProgressBar(BaseProgressBar):
             stats = self._format_stats(stats)
             postfix = self._str_commas(stats)
             with rename_logger(logger, tag):
-                logger.info(
+                print(
                     '{}:  {:5d} / {:d} {}'
                     .format(self.prefix, self.i + 1, self.size, postfix)
                 )
@@ -266,7 +266,7 @@ class SimpleProgressBar(BaseProgressBar):
         """Print end-of-epoch stats."""
         postfix = self._str_pipes(self._format_stats(stats))
         with rename_logger(logger, tag):
-            logger.info('{} | {}'.format(self.prefix, postfix))
+            print('{} | {}'.format(self.prefix, postfix))
 
 
 class TqdmProgressBar(BaseProgressBar):

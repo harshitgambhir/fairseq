@@ -146,7 +146,7 @@ class MultilingualTranslationTask(FairseqTask):
             if args.encoder_langtok is not None or args.decoder_langtok:
                 for lang_to_add in sorted_langs:
                     dicts[lang].add_symbol(_lang_token(lang_to_add))
-            logger.info('[{}] dictionary: {} types'.format(lang, len(dicts[lang])))
+            print('[{}] dictionary: {} types'.format(lang, len(dicts[lang])))
         return dicts, training
 
     def get_encoder_langtok(self, src_lang, tgt_lang):

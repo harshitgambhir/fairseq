@@ -213,7 +213,7 @@ class Wav2VecModel(BaseFairseqModel):
         base_wav2vec_architecture(args)
 
         model = Wav2VecModel(args)
-        logger.info(model)
+        print(model)
         return model
 
     def __init__(self, args):

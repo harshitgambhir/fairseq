@@ -23,7 +23,7 @@ try:
     import xentropy_cuda
     from apex.contrib import xentropy
 
-    logger.info('using fused cross entropy')
+    print('using fused cross entropy')
 
     def cross_entropy(logits, target, ignore_index=-100, reduction='mean'):
         if logits.device == torch.device('cpu'):

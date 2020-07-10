@@ -74,7 +74,7 @@ class LegacyMaskedLMTask(FairseqTask):
         paths = utils.split_paths(args.data)
         assert len(paths) > 0
         dictionary = BertDictionary.load(os.path.join(paths[0], 'dict.txt'))
-        logger.info('dictionary: {} types'.format(len(dictionary)))
+        print('dictionary: {} types'.format(len(dictionary)))
 
         return cls(args, dictionary)
 
@@ -89,7 +89,7 @@ class LegacyMaskedLMTask(FairseqTask):
         paths = utils.split_paths(self.args.data)
         assert len(paths) > 0
         data_path = paths[(epoch - 1) % len(paths)]
-        logger.info("data_path", data_path)
+        print("data_path", data_path)
 
         for k in itertools.count():
             split_k = split + (str(k) if k > 0 else '')
@@ -119,7 +119,7 @@ class LegacyMaskedLMTask(FairseqTask):
                     )
                 )
 
-            logger.info('{} {} {} examples'.format(data_path, split_k, len(loaded_datasets[-1])))
+            print('{} {} {} examples'.format(data_path, split_k, len(loaded_datasets[-1])))
 
             if not combine:
                 break

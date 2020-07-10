@@ -64,14 +64,14 @@ def main(parsed_args, **unused_kwargs):
 
     utils.import_user_module(parsed_args)
 
-    logger.info(parsed_args)
+    print(parsed_args)
 
     use_cuda = torch.cuda.is_available() and not parsed_args.cpu
 
     task = tasks.setup_task(parsed_args)
 
     # Load ensemble
-    logger.info('loading model(s) from {}'.format(parsed_args.path))
+    print('loading model(s) from {}'.format(parsed_args.path))
     models, args = checkpoint_utils.load_model_ensemble(
         parsed_args.path.split(os.pathsep),
         arg_overrides=eval(parsed_args.model_overrides),
@@ -100,7 +100,7 @@ def main(parsed_args, **unused_kwargs):
             context_window=args.context_window,
             pad_idx=task.source_dictionary.pad(),
         )
-    logger.info('{} {} {} examples'.format(args.data, args.gen_subset, len(dataset)))
+    print('{} {} {} examples'.format(args.data, args.gen_subset, len(dataset)))
 
     # Optimize ensemble for generation and set the source and dest dicts on the model (required by scorer)
     for model in models:
@@ -112,7 +112,7 @@ def main(parsed_args, **unused_kwargs):
 
     assert len(models) > 0
 
-    logger.info('num. model params: {}'.format(sum(p.numel() for p in models[0].parameters())))
+    print('num. model params: {}'.format(sum(p.numel() for p in models[0].parameters())))
 
     itr = task.get_batch_iterator(
         dataset=dataset,
@@ -191,7 +191,7 @@ def main(parsed_args, **unused_kwargs):
 
             inf_scores = pos_scores.eq(float('inf')) | pos_scores.eq(float('-inf'))
             if inf_scores.any():
-                logger.info(
+                print(
                     'skipping tokens with inf scores:',
                     task.target_dictionary.string(tokens[inf_scores.nonzero()])
                 )
@@ -224,7 +224,7 @@ def main(parsed_args, **unused_kwargs):
                         is_bpe = False
                         w = ''
                 if args.output_word_probs:
-                    logger.info(
+                    print(
                         str(int(sample_id)) + " "
                         + ('\t'.join('{} [{:2f}]'.format(x[0], x[1]) for x in word_prob))
                     )
@@ -233,16 +233,16 @@ def main(parsed_args, **unused_kwargs):
         progress.log({'wps': round(wps_meter.avg)})
 
     avg_nll_loss = -score_sum / count / math.log(2)  # convert to base 2
-    logger.info('Evaluated {} tokens in {:.1f}s ({:.2f} tokens/s)'.format(
+    print('Evaluated {} tokens in {:.1f}s ({:.2f} tokens/s)'.format(
         gen_timer.n, gen_timer.sum, 1. / gen_timer.avg
     ))
-    logger.info('Loss (base 2): {:.4f}, Perplexity: {:.2f}'.format(
+    print('Loss (base 2): {:.4f}, Perplexity: {:.2f}'.format(
         avg_nll_loss, 2**avg_nll_loss
     ))
 
     if args.output_word_stats:
         for ws in sorted(word_stats.values(), key=lambda x: x.count, reverse=True):
-            logger.info(ws)
+            print(ws)
 
 
 def cli_main():

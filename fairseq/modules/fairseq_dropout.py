@@ -44,9 +44,9 @@ class FairseqDropout(nn.Module):
                 retain_dropout_modules is None  # if None, apply to all modules
                 or self.module_name in retain_dropout_modules
             ):
-                logger.info(
+                print(
                     'Enabling dropout during inference for module: {}'.format(name)
                 )
                 self.apply_during_inference = True
             else:
-                logger.info('Disabling dropout for module: {}'.format(name))
+                print('Disabling dropout for module: {}'.format(name))

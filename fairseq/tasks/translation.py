@@ -79,7 +79,7 @@ def load_langpair_dataset(
         if tgt_dataset is not None:
             tgt_datasets.append(tgt_dataset)
 
-        logger.info('{} {} {}-{} {} examples'.format(
+        print('{} {} {}-{} {} examples'.format(
             data_path, split_k, src, tgt, len(src_datasets[-1])
         ))
 
@@ -231,8 +231,8 @@ class TranslationTask(FairseqTask):
         assert src_dict.pad() == tgt_dict.pad()
         assert src_dict.eos() == tgt_dict.eos()
         assert src_dict.unk() == tgt_dict.unk()
-        logger.info('[{}] dictionary: {} types'.format(args.source_lang, len(src_dict)))
-        logger.info('[{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
+        print('[{}] dictionary: {} types'.format(args.source_lang, len(src_dict)))
+        print('[{}] dictionary: {} types'.format(args.target_lang, len(tgt_dict)))
 
         return cls(args, src_dict, tgt_dict)
 
@@ -378,8 +378,8 @@ class TranslationTask(FairseqTask):
                 escape_unk=True,  # don't count <unk> as matches to the hypo
             ))
         if self.args.eval_bleu_print_samples:
-            logger.info('example hypothesis: ' + hyps[0])
-            logger.info('example reference: ' + refs[0])
+            print('example hypothesis: ' + hyps[0])
+            print('example reference: ' + refs[0])
         if self.args.eval_tokenized_bleu:
             return sacrebleu.corpus_bleu(hyps, [refs], tokenize='none')
         else:

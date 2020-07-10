@@ -201,7 +201,7 @@ class LanguagePairDataset(FairseqDataset):
                 left_pad=self.left_pad_source,
             )
             self.src_sizes = self.src.sizes
-            logger.info('bucketing source lengths: {}'.format(list(self.src.buckets)))
+            print('bucketing source lengths: {}'.format(list(self.src.buckets)))
             if self.tgt is not None:
                 self.tgt = BucketPadLengthDataset(
                     self.tgt,
@@ -211,7 +211,7 @@ class LanguagePairDataset(FairseqDataset):
                     left_pad=self.left_pad_target,
                 )
                 self.tgt_sizes = self.tgt.sizes
-                logger.info('bucketing target lengths: {}'.format(list(self.tgt.buckets)))
+                print('bucketing target lengths: {}'.format(list(self.tgt.buckets)))
 
             # determine bucket sizes using self.num_tokens, which will return
             # the padded lengths (thanks to BucketPadLengthDataset)

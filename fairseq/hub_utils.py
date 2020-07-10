@@ -174,15 +174,15 @@ class GeneratorHubInterface(nn.Module):
 
             for source_tokens, target_hypotheses in zip(tokenized_sentences, outputs):
                 src_str_with_unk = self.string(source_tokens)
-                logger.info('S\t{}'.format(src_str_with_unk))
+                print('S\t{}'.format(src_str_with_unk))
                 for hypo in target_hypotheses:
                     hypo_str = self.decode(hypo['tokens'])
-                    logger.info('H\t{}\t{}'.format(hypo['score'], hypo_str))
-                    logger.info('P\t{}'.format(
+                    print('H\t{}\t{}'.format(hypo['score'], hypo_str))
+                    print('P\t{}'.format(
                         ' '.join(map(lambda x: '{:.4f}'.format(x), hypo['positional_scores'].tolist()))
                     ))
                     if hypo['alignment'] is not None and getarg('print_alignment', False):
-                        logger.info('A\t{}'.format(
+                        print('A\t{}'.format(
                             ' '.join(['{}-{}'.format(src_idx, tgt_idx) for src_idx, tgt_idx in hypo['alignment']])
                         ))
         return outputs

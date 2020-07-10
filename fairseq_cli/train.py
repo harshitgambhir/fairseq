@@ -38,7 +38,6 @@ logging.basicConfig(
     stream=sys.stdout,
 )
 logger = logging.getLogger("fairseq_cli.train")
-logger.setLevel(logging.DEBUG)
 
 
 def main(
@@ -69,7 +68,7 @@ def main(
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
 
     # Print args
-    logger.info(args)
+    print(args)
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
@@ -81,11 +80,11 @@ def main(
     # Build model and criterion
     model = task.build_model(args)
     criterion = task.build_criterion(args)
-    logger.info(model)
-    logger.info(
+    print(model)
+    print(
         "model {}, criterion {}".format(args.arch, criterion.__class__.__name__)
     )
-    logger.info(
+    print(
         "num. model params: {} (num. trained: {})".format(
             sum(p.numel() for p in model.parameters()),
             sum(p.numel() for p in model.parameters() if p.requires_grad),
@@ -108,10 +107,10 @@ def main(
     else:
         trainer = MegatronTrainer(args, task, model, criterion)
 
-    logger.info(
+    print(
         "training on {} devices (GPUs/TPUs)".format(args.distributed_world_size)
     )
-    logger.info(
+    print(
         "max tokens per GPU = {} and max sentences per GPU = {}".format(
             args.max_tokens, args.max_sentences
         )
@@ -146,7 +145,7 @@ def main(
             load_dataset=(os.pathsep in getattr(args, "data", "")),
         )
     train_meter.stop()
-    logger.info("done training in {:.1f} seconds".format(train_meter.sum))
+    print("done training in {:.1f} seconds".format(train_meter.sum))
 
 
 def should_stop_early(args, valid_loss):
@@ -167,7 +166,7 @@ def should_stop_early(args, valid_loss):
     else:
         should_stop_early.num_runs += 1
         if should_stop_early.num_runs >= args.patience:
-            logger.info(
+            print(
                 "early stop since valid performance hasn't improved for last {} runs".format(
                     args.patience
                 )

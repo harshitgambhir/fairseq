@@ -132,7 +132,7 @@ def print_embed_overlap(embed_dict, vocab_dict):
     embed_keys = set(embed_dict.keys())
     vocab_keys = set(vocab_dict.symbols)
     overlap = len(embed_keys & vocab_keys)
-    logger.info("found {}/{} types in embedding file".format(overlap, len(vocab_dict)))
+    print("found {}/{} types in embedding file".format(overlap, len(vocab_dict)))
 
 
 def parse_embedding(embed_path):
@@ -559,7 +559,7 @@ def get_tpu_device(args):
 def logging_multiple_line_messages(msg):
     msg_arr = msg.split("\n")
     for line in msg_arr:
-        logger.info(line)
+        print(line)
 
 
 class CudaEnvironment(object):

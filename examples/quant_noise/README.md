@@ -111,8 +111,8 @@ for step in range(len(layers_to_quantize)):
         n_centroids_config,
         step=step,
     )
-    logger.info(f"Finetuning stage {step}, quantized layers: {quantized_layers}")
-    logger.info(f"{size_tracker}")
+    print(f"Finetuning stage {step}, quantized layers: {quantized_layers}")
+    print(f"{size_tracker}")
 
     # Don't forget to re-create/update trainer/optimizer since model parameters have changed
     optimizer = ...

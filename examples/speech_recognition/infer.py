@@ -165,14 +165,14 @@ def main(args):
 
     if args.max_tokens is None and args.max_sentences is None:
         args.max_tokens = 30000
-    logger.info(args)
+    print(args)
 
     use_cuda = torch.cuda.is_available() and not args.cpu
 
     # Load dataset splits
     task = tasks.setup_task(args)
     task.load_dataset(args.gen_subset)
-    logger.info(
+    print(
         "| {} {} {} examples".format(
             args.data, args.gen_subset, len(task.dataset(args.gen_subset))
         )
@@ -181,10 +181,10 @@ def main(args):
     # Set dictionary
     tgt_dict = task.target_dictionary
 
-    logger.info("| decoding with criterion {}".format(args.criterion))
+    print("| decoding with criterion {}".format(args.criterion))
 
     # Load ensemble
-    logger.info("| loading model(s) from {}".format(args.path))
+    print("| loading model(s) from {}".format(args.path))
     models, criterions, _model_args = load_models_and_criterions(
         args.path.split(os.pathsep),
         arg_overrides=eval(args.model_overrides),  # noqa
@@ -249,7 +249,7 @@ def main(args):
         progress.log({"wps": round(wps_meter.avg)})
         num_sentences += sample["nsentences"]
 
-    logger.info(
+    print(
         "| Processed {} sentences ({} tokens) in {:.1f}s ({:.2f}"
         "sentences/s, {:.2f} tokens/s)".format(
             num_sentences,
@@ -259,7 +259,7 @@ def main(args):
             1.0 / gen_timer.avg,
         )
     )
-    logger.info("| Generate {} with beam={}".format(args.gen_subset, args.beam))
+    print("| Generate {} with beam={}".format(args.gen_subset, args.beam))
 
 
 def cli_main():

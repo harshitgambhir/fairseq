@@ -82,7 +82,7 @@ def save_checkpoint(args, trainer, epoch_itr, val_loss):
             PathManager.copy(checkpoints[0], cp, overwrite=True)
 
         write_timer.stop()
-        logger.info(
+        print(
             "saved checkpoint {} (epoch {} @ {} updates, score {}) (writing took {} seconds)".format(
                 checkpoints[0], epoch, updates, val_loss, write_timer.sum
             )
@@ -388,7 +388,7 @@ def prune_state_dict(state_dict, args):
         return state_dict
 
     # apply pruning
-    logger.info(
+    print(
         "Pruning model to specified layer configuration - this works best if the model was trained with LayerDrop"
     )
 

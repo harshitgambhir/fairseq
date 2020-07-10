@@ -81,7 +81,7 @@ def distributed_init(args):
         if torch.distributed.is_initialized():
             warnings.warn('Distributed is already initialized, cannot initialize twice!')
         else:
-            logger.info('distributed init (rank {}): {}'.format(
+            print('distributed init (rank {}): {}'.format(
                 args.distributed_rank, args.distributed_init_method,
             ))
             dist.init_process_group(
@@ -90,7 +90,7 @@ def distributed_init(args):
                 world_size=args.distributed_world_size,
                 rank=args.distributed_rank,
             )
-            logger.info('initialized host {} as rank {}'.format(
+            print('initialized host {} as rank {}'.format(
                 socket.gethostname(), args.distributed_rank,
             ))
 

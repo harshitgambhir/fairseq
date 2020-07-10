@@ -165,7 +165,7 @@ class SemisupervisedTranslationTask(MultilingualTranslationTask):
                     continue
                 src_datasets[lang_pair] = load_indexed_dataset(prefix + src, self.dicts[src])
                 tgt_datasets[lang_pair] = load_indexed_dataset(prefix + tgt, self.dicts[tgt])
-                logger.info('parallel-{} {} {} examples'.format(data_path, split, len(src_datasets[lang_pair])))
+                print('parallel-{} {} {} examples'.format(data_path, split, len(src_datasets[lang_pair])))
             if len(src_datasets) == 0:
                 raise FileNotFoundError('Dataset not found: {} ({})'.format(split, data_path))
 
@@ -212,7 +212,7 @@ class SemisupervisedTranslationTask(MultilingualTranslationTask):
                         tgt_lang=tgt,
                     ).collater,
                 )
-                logger.info('backtranslate-{}: {} {} {} examples'.format(
+                print('backtranslate-{}: {} {} {} examples'.format(
                     tgt, data_path, split, len(backtranslate_datasets[lang_pair]),
                 ))
                 self.backtranslate_datasets[lang_pair] = backtranslate_datasets[lang_pair]
@@ -251,7 +251,7 @@ class SemisupervisedTranslationTask(MultilingualTranslationTask):
                     tgt_eos=self.dicts[tgt].eos(),
                     tgt_lang=tgt,
                 )
-                logger.info('denoising-{}: {} {} {} examples'.format(
+                print('denoising-{}: {} {} {} examples'.format(
                     tgt, data_path, split, len(noising_datasets[lang_pair]),
                 ))
 

@@ -118,7 +118,7 @@ class LanguageModelingTask(FairseqTask):
             paths = utils.split_paths(args.data)
             assert len(paths) > 0
             dictionary = Dictionary.load(os.path.join(paths[0], "dict.txt"))
-            logger.info("dictionary: {} types".format(len(dictionary)))
+            print("dictionary: {} types".format(len(dictionary)))
             output_dictionary = dictionary
             if args.output_dictionary_size >= 0:
                 output_dictionary = TruncatedDictionary(

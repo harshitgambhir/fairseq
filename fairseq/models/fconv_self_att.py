@@ -113,7 +113,7 @@ class FConvModelSelfAtt(FairseqEncoderDecoderModel):
         trained_encoder, trained_decoder = None, None
         pretrained = eval(args.pretrained)
         if pretrained:
-            logger.info('loading pretrained model')
+            print('loading pretrained model')
             if not os.path.exists(args.pretrained_checkpoint):
                 new_pretrained_checkpoint = os.path.join(args.data, args.pretrained_checkpoint)
                 if os.path.exists(new_pretrained_checkpoint):

@@ -86,7 +86,7 @@ class SentenceRankingTask(FairseqTask):
             os.path.join(args.data, 'input0', 'dict.txt'),
             source=True,
         )
-        logger.info('[input] dictionary: {} types'.format(len(data_dict)))
+        print('[input] dictionary: {} types'.format(len(data_dict)))
         return SentenceRankingTask(args, data_dict)
 
     def load_dataset(self, split, combine=False, **kwargs):
@@ -180,7 +180,7 @@ class SentenceRankingTask(FairseqTask):
                 sort_order=[shuffle],
             )
 
-        logger.info("Loaded {0} with #samples: {1}".format(split, len(dataset)))
+        print("Loaded {0} with #samples: {1}".format(split, len(dataset)))
 
         self.datasets[split] = dataset
         return self.datasets[split]

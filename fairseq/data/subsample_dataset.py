@@ -28,7 +28,7 @@ class SubsampleDataset(BaseWrapperDataset):
         self.indices = np.random.choice(
             list(range(len(self.dataset))), self.actual_size, replace=False
         )
-        logger.info(
+        print(
             "subsampled dataset from {} to {} (ratio={})".format(
                 len(self.dataset), self.actual_size, size_ratio
             )

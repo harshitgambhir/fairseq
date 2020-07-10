@@ -225,7 +225,7 @@ class RobertaModel(FairseqEncoderModel):
             cur_state = self.classification_heads.state_dict()
             for k, v in cur_state.items():
                 if prefix + 'classification_heads.' + k not in state_dict:
-                    logger.info('Overwriting ' + prefix + 'classification_heads.' + k)
+                    print('Overwriting ' + prefix + 'classification_heads.' + k)
                     state_dict[prefix + 'classification_heads.' + k] = v
 
 

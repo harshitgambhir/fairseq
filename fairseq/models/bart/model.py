@@ -115,7 +115,7 @@ class BARTModel(TransformerModel):
 
     def register_classification_head(self, name, num_classes=None, inner_dim=None, **kwargs):
         """Register a classification head."""
-        logger.info("Registering classification head: {0}".format(name))
+        print("Registering classification head: {0}".format(name))
         if name in self.classification_heads:
             prev_num_classes = self.classification_heads[name].out_proj.out_features
             prev_inner_dim = self.classification_heads[name].dense.out_features
@@ -190,7 +190,7 @@ class BARTModel(TransformerModel):
         # add extra lang embeddings at the end of embed_tokens.
         # Note: newly added languages are assumed to have been added at the end.
         if self.args.task == 'multilingual_denoising' and loaded_dict_size < len(self.encoder.dictionary):
-            logger.info(
+            print(
                 "Adding extra language embeddings not found in pretrained model for "\
                 "continued pretraining of MBART on new set of languages."
             )
@@ -226,7 +226,7 @@ class BARTModel(TransformerModel):
             cur_state = self.classification_heads.state_dict()
             for k, v in cur_state.items():
                 if prefix + 'classification_heads.' + k not in state_dict:
-                    logger.info('Overwriting', prefix + 'classification_heads.' + k)
+                    print('Overwriting', prefix + 'classification_heads.' + k)
                     state_dict[prefix + 'classification_heads.' + k] = v
 
 

@@ -125,7 +125,7 @@ class BARTHubInterface(nn.Module):
 
         if verbose:
             src_str_with_unk = self.string(tokens)
-            logger.info('S\t{}'.format(src_str_with_unk))
+            print('S\t{}'.format(src_str_with_unk))
 
         def getarg(name, default):
             return getattr(gen_args, name, getattr(self.args, name, default))

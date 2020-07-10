@@ -254,7 +254,7 @@ class BaseFairseqModel(nn.Module):
             archive_map=cls.hub_models(),
             **kwargs,
         )
-        logger.info(x["args"])
+        print(x["args"])
         return hub_utils.GeneratorHubInterface(x["args"], x["task"], x["models"])
 
     @classmethod

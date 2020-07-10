@@ -43,7 +43,7 @@ def main(args, override_args=None):
         overrides = None
 
     # Load ensemble
-    logger.info('loading model(s) from {}'.format(args.path))
+    print('loading model(s) from {}'.format(args.path))
     models, model_args, task = checkpoint_utils.load_model_ensemble_and_task(
         [args.path],
         arg_overrides=overrides,
@@ -59,7 +59,7 @@ def main(args, override_args=None):
             model.cuda()
 
     # Print args
-    logger.info(model_args)
+    print(model_args)
 
     # Build criterion
     criterion = task.build_criterion(model_args)

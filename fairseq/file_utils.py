@@ -54,7 +54,7 @@ def load_archive_file(archive_file):
     try:
         resolved_archive_file = cached_path(archive_file, cache_dir=None)
     except EnvironmentError:
-        logger.info(
+        print(
             "Archive name '{}' was not found in archive name list. "
             "We assumed '{}' was a path or URL but couldn't find any file "
             "associated to this path or URL.".format(
@@ -65,16 +65,16 @@ def load_archive_file(archive_file):
         return None
 
     if resolved_archive_file == archive_file:
-        logger.info("loading archive file {}".format(archive_file))
+        print("loading archive file {}".format(archive_file))
     else:
-        logger.info("loading archive file {} from cache at {}".format(
+        print("loading archive file {} from cache at {}".format(
             archive_file, resolved_archive_file))
 
     # Extract archive to temp dir and replace .tar.bz2 if necessary
     tempdir = None
     if not os.path.isdir(resolved_archive_file):
         tempdir = tempfile.mkdtemp()
-        logger.info("extracting archive file {} to temp dir {}".format(
+        print("extracting archive file {} to temp dir {}".format(
             resolved_archive_file, tempdir))
         ext = os.path.splitext(archive_file)[1][1:]
         with tarfile.open(resolved_archive_file, 'r:' + ext) as archive:
@@ -284,7 +284,7 @@ def get_from_cache(url, cache_dir=None):
         # Download to temporary file, then copy to cache dir once finished.
         # Otherwise you get corrupt cache entries if the download gets interrupted.
         with tempfile.NamedTemporaryFile() as temp_file:
-            logger.info("%s not found in cache, downloading to %s", url, temp_file.name)
+            print("%s not found in cache, downloading to %s", url, temp_file.name)
 
             # GET file object
             if url.startswith("s3://"):
@@ -297,18 +297,18 @@ def get_from_cache(url, cache_dir=None):
             # shutil.copyfileobj() starts at the current position, so go to the start
             temp_file.seek(0)
 
-            logger.info("copying %s to cache at %s", temp_file.name, cache_path)
+            print("copying %s to cache at %s", temp_file.name, cache_path)
             with open(cache_path, 'wb') as cache_file:
                 shutil.copyfileobj(temp_file, cache_file)
 
-            logger.info("creating metadata file for %s", cache_path)
+            print("creating metadata file for %s", cache_path)
             meta = {'url': url, 'etag': etag}
             meta_path = cache_path + '.json'
             with open(meta_path, 'w') as meta_file:
                 output_string = json.dumps(meta)
                 meta_file.write(output_string)
 
-            logger.info("removing temp file %s", temp_file.name)
+            print("removing temp file %s", temp_file.name)
 
     return cache_path
 

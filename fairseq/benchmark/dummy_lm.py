@@ -45,7 +45,7 @@ class DummyLMTask(FairseqTask):
         dictionary = Dictionary()
         for i in range(args.dict_size):
             dictionary.add_symbol('word{}'.format(i))
-        logger.info('dictionary: {} types'.format(len(dictionary)))
+        print('dictionary: {} types'.format(len(dictionary)))
         return cls(args, dictionary)
 
     def load_dataset(self, split, epoch=1, combine=False, **kwargs):

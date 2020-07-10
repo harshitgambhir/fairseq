@@ -78,7 +78,7 @@ class MultiLingualMaskedLMTask(FairseqTask):
         paths = utils.split_paths(args.data)
         assert len(paths) > 0
         dictionary = Dictionary.load(os.path.join(paths[0], 'dict.txt'))
-        logger.info('dictionary: {} types'.format(len(dictionary)))
+        print('dictionary: {} types'.format(len(dictionary)))
         return cls(args, dictionary)
 
     def _get_whole_word_mask(self):
@@ -131,8 +131,8 @@ class MultiLingualMaskedLMTask(FairseqTask):
             if os.path.isdir(os.path.join(data_path, name))
         )
 
-        logger.info("Training on {0} languages: {1}".format(len(languages), languages))
-        logger.info("Language to id mapping: ", {
+        print("Training on {0} languages: {1}".format(len(languages), languages))
+        print("Language to id mapping: ", {
                 lang: id for id, lang in enumerate(languages)
             }
         )
@@ -160,7 +160,7 @@ class MultiLingualMaskedLMTask(FairseqTask):
                 eos=self.source_dictionary.eos(),
                 break_mode=self.args.sample_break_mode,
             )
-            logger.info('loaded {} blocks from: {}'.format(len(dataset), split_path))
+            print('loaded {} blocks from: {}'.format(len(dataset), split_path))
 
             # prepend beginning-of-sentence token (<s>, equiv. to [CLS] in BERT)
             dataset = PrependTokenDataset(dataset, self.source_dictionary.bos())
@@ -206,7 +206,7 @@ class MultiLingualMaskedLMTask(FairseqTask):
             [len(d) for d in lang_datasets],
             dtype=float,
         )
-        logger.info(
+        print(
             'loaded total {} blocks for all languages'.format(
                 dataset_lengths.sum(),
             )
@@ -214,13 +214,13 @@ class MultiLingualMaskedLMTask(FairseqTask):
         if split == self.args.train_subset:
             # For train subset, additionally up or down sample languages.
             sample_probs = self._get_sample_prob(dataset_lengths)
-            logger.info("Sample probability by language: ", {
+            print("Sample probability by language: ", {
                     lang: "{0:.4f}".format(sample_probs[id])
                     for id, lang in enumerate(languages)
                 }
             )
             size_ratio = (sample_probs * dataset_lengths.sum()) / dataset_lengths
-            logger.info("Up/Down Sampling ratio by language: ", {
+            print("Up/Down Sampling ratio by language: ", {
                     lang: "{0:.2f}".format(size_ratio[id])
                     for id, lang in enumerate(languages)
                 }

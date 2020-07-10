@@ -70,7 +70,7 @@ class Trainer(object):
         for shared_param in shared_params:
             ref = _get_module_by_path(self._model, shared_param[0])
             for path in shared_param[1:]:
-                logger.info(
+                print(
                     'detected shared parameter: {} <- {}'.format(shared_param[0], path)
                 )
                 _set_module_by_path(self._model, path, ref)
@@ -191,7 +191,7 @@ class Trainer(object):
 
         if self.args.fp16 or self.args.bf16:
             if self.cuda and torch.cuda.get_device_capability(0)[0] < 7:
-                logger.info(
+                print(
                     "NOTE: your device does NOT support faster training with --fp16, "
                     "please switch to FP32 which is likely to be faster"
                 )
@@ -203,7 +203,7 @@ class Trainer(object):
                 self._optimizer = optim.FP16Optimizer.build_optimizer(self.args, params)
         else:
             if self.cuda and torch.cuda.get_device_capability(0)[0] >= 7:
-                logger.info("NOTE: your device may support faster training with --fp16")
+                print("NOTE: your device may support faster training with --fp16")
             self._optimizer = optim.build_optimizer(self.args, params)
 
         if self.args.use_bmuf:
@@ -285,7 +285,7 @@ class Trainer(object):
 
         if extra_state is not None:
             epoch = extra_state["train_iterator"]["epoch"]
-            logger.info(
+            print(
                 "loaded checkpoint {} (epoch {} @ {} updates)".format(
                     filename, epoch, self.get_num_updates()
                 )
@@ -301,7 +301,7 @@ class Trainer(object):
                     if isinstance(meter, meters.TimeMeter):
                         meter.reset()
         else:
-            logger.info("no existing checkpoint found {}".format(filename))
+            print("no existing checkpoint found {}".format(filename))
 
         return extra_state
 
@@ -315,7 +315,7 @@ class Trainer(object):
     ):
         """Return an EpochBatchIterator over the training set for a given epoch."""
         if load_dataset:
-            logger.info("loading train data for epoch {}".format(epoch))
+            print("loading train data for epoch {}".format(epoch))
             self.task.load_dataset(
                 self.args.train_subset,
                 epoch=epoch,
@@ -515,7 +515,7 @@ class Trainer(object):
             raise
         except OverflowError as e:
             overflow = True
-            logger.info("NOTE: overflow detected, " + str(e))
+            print("NOTE: overflow detected, " + str(e))
             grad_norm = torch.tensor(0.).cuda()
             self.zero_grad()
         except RuntimeError as e:

@@ -39,7 +39,7 @@ class FairseqAdam(FairseqOptimizer):
             # automatically casts gradients to FP32
             self._optimizer = Adam(params, **self.optimizer_config)
         elif use_fused_adam:
-            logger.info('using FusedAdam')
+            print('using FusedAdam')
             self._optimizer = fused_adam_cls(params, **self.optimizer_config)
         else:
             self._optimizer = Adam(params, **self.optimizer_config)

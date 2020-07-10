@@ -99,7 +99,7 @@ class DenoisingTask(FairseqTask):
         """Setup the task.
         """
         dictionary = Dictionary.load(os.path.join(args.data, 'dict.txt'))
-        logger.info('dictionary: {} types'.format(len(dictionary)))
+        print('dictionary: {} types'.format(len(dictionary)))
         if not hasattr(args, 'shuffle_instance'):
             args.shuffle_instance = False
         return cls(args, dictionary)
@@ -149,7 +149,7 @@ class DenoisingTask(FairseqTask):
             mask_whole_words, shuffle=self.args.shuffle_instance,
             seed=self.seed, args=self.args
         )
-        logger.info(
+        print(
             "Split: {0}, Loaded {1} samples of denoising_dataset".format(
                 split,
                 len(self.datasets[split]),

@@ -68,7 +68,7 @@ def main(
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
 
     # Print args
-    logger.info(args)
+    print(args)
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)

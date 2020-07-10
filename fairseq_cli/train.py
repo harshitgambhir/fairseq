@@ -37,7 +37,8 @@ logging.basicConfig(
     level=logging.INFO,
     stream=sys.stdout,
 )
-logger = logging.getLogger("fairseq_cli.train").setLevel(logging.DEBUG)
+logger = logging.getLogger("fairseq_cli.train")
+logger.setLevel(logging.DEBUG)
 
 
 def main(

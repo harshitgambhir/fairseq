@@ -245,6 +245,11 @@ class Trainer(object):
         if bexists:
             state = checkpoint_utils.load_checkpoint_to_cpu(filename)
 
+            encoder_pos = state['model']['encoder.embed_positions.weight']
+            to_append = encoder_pos[2:]
+            new_encoder_pos = torch.cat((encoder_pos, to_append))
+            state['model']['encoder.embed_positions.weight'] = new_encoder_pos
+
             # load model parameters
             try:
                 self.get_model().load_state_dict(

@@ -80,7 +80,7 @@ class TranslationFromPretrainedBARTTask(TranslationTask):
             max_target_positions=getattr(self.args, 'max_target_positions', 1024),
             load_alignments=self.args.load_alignments,
             prepend_bos=getattr(self.args, 'prepend_bos', False),
-            truncate_source=getattr(self.args, 'truncate_source', True),
+            truncate_source=getattr(self.args, 'truncate_source', False),
             append_source_id=True
             )
 

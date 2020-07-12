@@ -66,6 +66,7 @@ def load_langpair_dataset(
 
         src_dataset = data_utils.load_indexed_dataset(prefix + src, src_dict, dataset_impl)
         if truncate_source:
+            print("truncating")
             src_dataset = AppendTokenDataset(
                 TruncateDataset(
                     StripTokenDataset(src_dataset, src_dict.eos()),

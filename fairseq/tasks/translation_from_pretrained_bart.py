@@ -47,8 +47,6 @@ class TranslationFromPretrainedBARTTask(TranslationTask):
         parser.add_argument('--prepend-bos', action='store_true',
                             help='prepend bos token to each sentence, which matches '
                                  'mBART pretraining')
-        parser.add_argument('--truncate-source', action='store_true', default=False,
-                        help='truncate source to max-source-positions')
         # fmt: on
 
     def __init__(self, args, src_dict, tgt_dict):

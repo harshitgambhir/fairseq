@@ -35,7 +35,7 @@ def collate(
         if alignment is None or len(alignment) == 0:
             return False
         if alignment[:, 0].max().item() >= src_len - 1 or alignment[:, 1].max().item() >= tgt_len - 1:
-            logger.warning("alignment size mismatch found, skipping alignment!")
+            None
             return False
         return True
 

@@ -88,12 +88,7 @@ class ModelParallelRobertaModel(RobertaModel):
             prev_num_classes = self.classification_heads[name].out_proj.out_features
             prev_inner_dim = self.classification_heads[name].dense.out_features
             if num_classes != prev_num_classes or inner_dim != prev_inner_dim:
-                logger.warning(
-                    're-registering head "{}" with num_classes {} (prev: {}) '
-                    'and inner_dim {} (prev: {})'.format(
-                        name, num_classes, prev_num_classes, inner_dim, prev_inner_dim
-                    )
-                )
+               None
         self.classification_heads[name] = ModelParallelRobertaClassificationHead(
             self.args.encoder_embed_dim,
             inner_dim or self.args.encoder_embed_dim,

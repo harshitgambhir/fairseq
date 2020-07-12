@@ -36,10 +36,7 @@ class FairseqDropout(nn.Module):
     ):
         if retain_dropout:
             if retain_dropout_modules is not None and self.module_name is None:
-                logger.warning(
-                    'Cannot enable dropout during inference for module {} '
-                    'because module_name was not set'.format(name)
-                )
+                None
             elif (
                 retain_dropout_modules is None  # if None, apply to all modules
                 or self.module_name in retain_dropout_modules

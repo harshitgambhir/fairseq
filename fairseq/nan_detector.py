@@ -67,7 +67,7 @@ class NanDetector:
                     )
 
                 has_printed_attr = 'has_printed_b' if backward else 'has_printed_f'
-                logger.warning(err)
+                None
                 setattr(self, has_printed_attr, True)
         elif isinstance(x, dict):
             for v in x.values():

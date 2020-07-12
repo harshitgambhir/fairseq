@@ -219,8 +219,7 @@ def request_wrap_timeout(func, url):
         try:
             return func(timeout=timeout)
         except requests.exceptions.Timeout as e:
-            logger.warning("Request for %s timed-out (attempt %d). Retrying with a timeout of %d secs",
-                           url, attempt, timeout, exc_info=e)
+            None
             continue
     raise RuntimeError(f"Unable to fetch file {url}")
 

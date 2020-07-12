@@ -313,9 +313,7 @@ class TensorboardProgressBarWrapper(BaseProgressBar):
         self.tensorboard_logdir = tensorboard_logdir
 
         if SummaryWriter is None:
-            logger.warning(
-                "tensorboard not found, please install with: pip install tensorboardX"
-            )
+            None
 
     def _writer(self, key):
         if SummaryWriter is None:

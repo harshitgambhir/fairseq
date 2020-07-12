@@ -434,9 +434,7 @@ class Trainer(object):
                     self._log_oom(e)
                     if raise_oom:
                         raise e
-                    logger.warning(
-                        "attempting to recover from OOM in forward/backward pass"
-                    )
+                    None
                     ooms += 1
                     self.zero_grad()
                     if self.cuda:
@@ -604,9 +602,7 @@ class Trainer(object):
                 if "out of memory" in str(e):
                     self._log_oom(e)
                     if not raise_oom:
-                        logger.warning(
-                            "ran out of memory in validation step, retrying batch"
-                        )
+                        None
                         for p in self.model.parameters():
                             if p.grad is not None:
                                 p.grad = None  # free some memory
@@ -769,10 +765,10 @@ class Trainer(object):
 
     def _log_oom(self, exc):
         msg = "OOM: Ran out of memory with exception: {}".format(exc)
-        logger.warning(msg)
+        None
         if torch.cuda.is_available() and hasattr(torch.cuda, "memory_summary"):
             for device_idx in range(torch.cuda.device_count()):
-                logger.warning(torch.cuda.memory_summary(device=device_idx))
+                None
         sys.stderr.flush()
 
     def _aggregate_logging_outputs(
@@ -913,10 +909,7 @@ class Trainer(object):
             if "loss" not in agg:
                 if "loss" not in self._warn_once:
                     self._warn_once.add("loss")
-                    logger.warning(
-                        "Criterion.reduce_metrics did not log a 'loss' value, "
-                        "which may break some functionality"
-                    )
+                    None
                 metrics.log_scalar("loss", -1)
 
             # support legacy interface

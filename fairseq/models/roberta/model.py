@@ -136,12 +136,7 @@ class RobertaModel(FairseqEncoderModel):
             prev_num_classes = self.classification_heads[name].out_proj.out_features
             prev_inner_dim = self.classification_heads[name].dense.out_features
             if num_classes != prev_num_classes or inner_dim != prev_inner_dim:
-                logger.warning(
-                    're-registering head "{}" with num_classes {} (prev: {}) '
-                    'and inner_dim {} (prev: {})'.format(
-                        name, num_classes, prev_num_classes, inner_dim, prev_inner_dim
-                    )
-                )
+                None
         self.classification_heads[name] = RobertaClassificationHead(
             self.args.encoder_embed_dim,
             inner_dim or self.args.encoder_embed_dim,
@@ -202,19 +197,13 @@ class RobertaModel(FairseqEncoderModel):
                     self.register_classification_head(head_name, num_classes, inner_dim)
             else:
                 if head_name not in current_head_names:
-                    logger.warning(
-                        'deleting classification head ({}) from checkpoint '
-                        'not present in current model: {}'.format(head_name, k)
-                    )
+                    None
                     keys_to_delete.append(k)
                 elif (
                     num_classes != self.classification_heads[head_name].out_proj.out_features
                     or inner_dim != self.classification_heads[head_name].dense.out_features
                 ):
-                    logger.warning(
-                        'deleting classification head ({}) from checkpoint '
-                        'with different dimensions than current model: {}'.format(head_name, k)
-                    )
+                    None
                     keys_to_delete.append(k)
         for k in keys_to_delete:
             del state_dict[k]

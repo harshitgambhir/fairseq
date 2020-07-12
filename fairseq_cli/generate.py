@@ -260,9 +260,9 @@ def _main(args, output_file):
     if has_target:
         if args.bpe and not args.sacrebleu:
             if args.remove_bpe:
-                logger.warning("BLEU score is being computed by splitting detokenized string on spaces, this is probably not what you want. Use --sacrebleu for standard 13a BLEU tokenization")
+                None
             else:
-                logger.warning("If you are using BPE on the target side, the BLEU score is computed on BPE tokens, not on proper words.  Use --sacrebleu for standard 13a BLEU tokenization")
+                None
         print('Generate {} with beam={}: {}'.format(args.gen_subset, args.beam, scorer.result_string()))
 
     return scorer

@@ -485,7 +485,7 @@ def verify_checkpoint_directory(save_dir: str) -> None:
         with open(temp_file_path, "w"):
             pass
     except OSError as e:
-        logger.warning("Unable to access checkpoint save directory: {}".format(save_dir))
+        None
         raise e
     else:
         os.remove(temp_file_path)

@@ -246,7 +246,7 @@ class Trainer(object):
             state = checkpoint_utils.load_checkpoint_to_cpu(filename)
             encoder_pos = state['model']['encoder.embed_positions.weight']
             to_append = encoder_pos[2:]
-            new_encoder_pos = torch.cat((encoder_pos, to_append[:1265]))
+            new_encoder_pos = torch.cat((encoder_pos, to_append[:1264]))
             state['model']['encoder.embed_positions.weight'] = new_encoder_pos
 
             # load model parameters
